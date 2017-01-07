@@ -32,8 +32,8 @@ sentences=sent_tokenize(all_text)
 # 4/ Location of your PCFG model : usr/<username>/Desktop/stanford-corenlp-full-2016-10-31/edu/stanford/models/lexparser/englishPCFG.ser.gz
 
 
-parser=StanfordParser("/home/dang/Desktop/stanford-corenlp-full-2016-10-31/stanford-corenlp-3.7.0.jar",
-                      "/home/dang/Desktop/stanford-corenlp-full-2016-10-31/stanford-corenlp-3.7.0-models.jar")
+parser=StanfordParser("[userlocation]/stanford-corenlp-full-2016-10-31/stanford-corenlp-3.7.0.jar",
+                      "[userlocation]/stanford-corenlp-full-2016-10-31/stanford-corenlp-3.7.0-models.jar")
 parse_trees=parser.raw_parse_sents(sentences[:200])
 
 # question base pattern
@@ -45,17 +45,6 @@ for tree in parse_trees:
     for i in tree:
         tmp_tree=i
     trees.append(tmp_tree)
-
-
-# Now we need method to compare our tree with the pattern
-tmp_tree=Tree.fromstring("""
-(S
-    (NP (NN I))
-    (VP (VB love) (NN you))
-    (. .)
-)
-""")
-
 
 PATTERN_EXAMPLE=("S",("NP","VP","."))
 # To see how to compare pattern and Tree, we compare tmp tree and pattern SIMPLE_PREDICATE
@@ -120,5 +109,3 @@ def sent_to_bin_q(sentence_tree):
 bi_quest=[]
 for predicate in predicates:
     bi_quest.append(sent_to_bin_q(predicate))
-
-# How to answer
